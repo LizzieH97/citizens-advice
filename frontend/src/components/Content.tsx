@@ -4,16 +4,21 @@ import { SplitOutsideTags } from "@/utils/splitOutsideTags";
 
 export default function Content({ data }: { data: DataObj }) {
   const [title, body] = SplitOutsideTags(data.content);
-
-  const inlineBolds = ["debt advice"]; // defined like this so I can add more if needed, at the moment there's just one that I don't want a line break before as it's bold in the paragraph
-
+  const inlineBolds = ["debt advice"];
   const pattern = new RegExp(`<b>(?!(${inlineBolds.join("|")})<\\/b>)`, "g");
   const lineBreakBody = body.replace(pattern, "<br/><b>");
-
+  const fixedSourceTitle = title.replaceAll(
+    "href",
+    'className="text-decoration-line text-emerald-400 text-2xl" href'
+  );
+  const fixedSourceBody = lineBreakBody.replaceAll(
+    "href",
+    'className="text-decoration-line text-emerald-400 text-lg" href'
+  );
   return (
     <div className="border-2 border-gray-300 p-4 bg-sky-700 rounded-md">
-      <div className="text-white text-2xl px-2">{parse(title)}</div>
-      <div className="text-lg text-white px-2">{parse(lineBreakBody)}</div>
+      <div className="text-white text-2xl px-2">{parse(fixedSourceTitle)}</div>
+      <div className="text-lg text-white px-2">{parse(fixedSourceBody)}</div>
 
       {data.sources.map((source) => (
         <section

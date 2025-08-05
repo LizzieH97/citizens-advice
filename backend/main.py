@@ -29,8 +29,6 @@ def get_data() -> list[Data]:
     output = []
     for item in raw_data:
         content = item["content"]
-
-       
         cited_ids = re.findall(r"<ref>(.*?)</ref>", content)
 
         cited_sources = []
@@ -45,16 +43,14 @@ def get_data() -> list[Data]:
                     "source": source["source"],
                     "favicon": favicon
                 })
-                # what
                 id_to_url[source["id"]] = source["source"]
 
-        #replace <ref> tags with the actual links and group(1) for inside of tag stuff
         def replace_ref(match):
             ref_id = match.group(1)
             link = id_to_url.get(ref_id)
             if link:
                 return f"<a href='{link}'>[source]</a>"
-            return ""  # if there's no id 
+            return ""  
 
         clean_content = re.sub(r"<ref>(.*?)</ref>", replace_ref, content)
 

@@ -5,7 +5,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("uvicorn.error")
-## NOTE - I cannot extract the favicons from the gov and police websites as they are forbidden. Error logic has been applied to them
+## NOTE - I cannot extract the favicons from the gov and police websites as they are forbidden, even with headers to mimic browsers. Error logic has been applied to them
 def extract_favicon_url(page_url: str) -> str | None:
     """
     Extracts the favicon URL from the webpage,
@@ -27,7 +27,6 @@ def extract_favicon_url(page_url: str) -> str | None:
 
     soup = BeautifulSoup(response.text, "html.parser")
     
-   
     icon_link = (
         soup.find("link", rel="icon")
         or soup.find("link", rel="shortcut icon")

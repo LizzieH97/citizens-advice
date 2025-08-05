@@ -6,7 +6,6 @@ import { Source, DataObj } from "../types/index";
 import NavBar from "@/components/NavBar";
 
 export default function Home() {
-  // TODO: Fetch the data from /api/data
   const [data, setData] = useState<DataObj[]>([]);
   useEffect(() => {
     fetch("http://localhost:8000/data")
@@ -43,8 +42,6 @@ export default function Home() {
               );
             })
           : null}
-
-        {/* Each piece of content in the list should have its own content component */}
       </main>
     </div>
   );
