@@ -9,8 +9,7 @@ logger = logging.getLogger("uvicorn.error")
 def extract_favicon_url(page_url: str) -> str | None:
     """
     Extracts the favicon URL from the webpage,
-    Falls back to /favicon.ico if there's no <link> found,
-    Returns None if request completely fails
+    Falls back to /favicon.ico if there's no link found
     """
     
     logger.info(f"Extracting favicon from: {page_url}")

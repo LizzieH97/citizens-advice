@@ -16,7 +16,7 @@ The main issues I encountered with this was exporting the favicons - the icons f
 
 ## Frontend Development
 
-I had set up my layout and api calls quite quickly, but the errors came through manipulating the data to display well. In the content, there were <a> and <b> tags, with which I had to use a HTML parser to show up as links and bold as they should. I also had to include break lines, as the information needed to be broken up to become more reader-accessible.
+I had set up my layout and api calls quite quickly, but the errors came through manipulating the data to display well. In the content, there were a (link) and b (bold) tags, with which I had to use a HTML parser to show up as links and bold as they should. I also had to include break lines, as the information needed to be broken up to become more reader-accessible.
 
 The other issues I encountered were through TypeScript types, but in order to avoid repeating myself I created a types folder to hold them.
 
@@ -25,3 +25,19 @@ The other issues I encountered were through TypeScript types, but in order to av
 Overall I have enjoyed making this project, particularly exploring Python further, and have conducted plenty of research so that it is user-friendly and accessible.
 
 I am extremely happy with the outcome, I believe it looks clean and the code is DRY, readable and concise.
+
+---
+
+## Viewing Project
+
+In the frontend folder, I used
+
+npm run dev
+
+(after running npm install)
+
+and in the backend I used
+
+poetry run fastapi dev main.py
+
+(after running poetry install --no-root)
