@@ -33,8 +33,8 @@ export default function Content({ data }: { data: DataObj }) {
               className="absolute inset-0 w-auto h-auto object-cover"
               alt="favicon"
             />
-            <div className="absolute top-1/3 left-1/3 -translate-x-1/3 -translate-y-1/3 text-xs text-white font-bold text-center">
-              CLICK HERE
+            <div className="absolute top-1/3 left-1/3 -translate-x-1/3 -translate-y-1/3 text-xs text-white font-bold text-center pr-2">
+              click here
             </div>
           </a>
         </section>

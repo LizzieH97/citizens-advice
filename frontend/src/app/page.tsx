@@ -33,10 +33,10 @@ export default function Home() {
           <h2 className="text-lg font-medium">Junior Developer Practical</h2>
         </div>
         {data
-          ? data.map((category) => {
+          ? data.map((category, index) => {
               const id = category.category.split("_");
               return (
-                <div id={id[0]}>
+                <div id={id[0]} key={index}>
                   {" "}
                   <Content key={category.category} data={category} />
                 </div>
