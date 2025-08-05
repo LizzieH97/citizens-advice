@@ -11,9 +11,13 @@ export default function NavBar({ data }: { data: DataObj[] }) {
     <nav className="bg-white border-sky-900 border-4 rounded-3xl flex flex-row items-center justify-around">
       {fixedCategories.map((cat, index) => {
         const link = cat.split(" ");
+        const capitalisedLink = link.map((word) => {
+          return String(word).charAt(0).toUpperCase() + String(word).slice(1);
+        });
+        const formattedCat = capitalisedLink.join(" ");
         return (
           <a href={`#${link[0]}`} key={index} className={buttonStyling}>
-            {cat}
+            {formattedCat}
           </a>
         );
       })}
