@@ -1,14 +1,58 @@
 import json
+import re
 from fastapi import FastAPI
-from models import Data
 from pathlib import Path
-
+from utils import extract_favicon_url
+from models import Data
 
 app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "And we're up and running! Go to /data for the content."}
 
 
 @app.get("/data", response_model=list[Data])
 def get_data() -> list[Data]:
-    data = Path("data/mock.json").read_text()
-    list_of_data = [Data.model_validate(item) for item in json.loads(data)]
-    return list_of_data
+    raw = Path("data/mock.json").read_text()
+    raw_data = json.loads(raw)
+
+    output = []
+    for item in raw_data:
+        content = item["content"]
+
+       
+        cited_ids = re.findall(r"<ref>(.*?)</ref>", content)
+
+        cited_sources = []
+        id_to_url = {}
+
+        for source in item["sources"]:
+            if source["id"] in cited_ids:
+                favicon = extract_favicon_url(source["source"])
+                cited_sources.append({
+                    "id": source["id"],
+                    "title": source["title"],
+                    "source": source["source"],
+                    "favicon": favicon
+                })
+                # what
+                id_to_url[source["id"]] = source["source"]
+
+        #replace <ref> tags with the actual links and group(1) for inside of tag stuff
+        def replace_ref(match):
+            ref_id = match.group(1)
+            link = id_to_url.get(ref_id)
+            if link:
+                return f"<a href='{link}'>[source]</a>"
+            return ""  # if there's no id 
+
+        clean_content = re.sub(r"<ref>(.*?)</ref>", replace_ref, content)
+
+        output.append({
+            "category": item["category"],
+            "content": clean_content,
+            "sources": cited_sources,
+        })
+
+    return output

@@ -4,6 +4,7 @@ class Source(BaseModel):
     id: str
     title: str
     source: str
+    favicon: str
 
 class Data(BaseModel):
     category: str
